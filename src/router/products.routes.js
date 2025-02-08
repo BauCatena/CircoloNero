@@ -49,7 +49,7 @@ class ProductManager {
 
     products.splice(productIndex, 1) // Eliminar el producto del array
 
-    try {
+    try{
       fs.writeFileSync(this.productsList, JSON.stringify(products, null, 2), "utf8")
       return { message: "Producto eliminado" }
     } catch (err) {
@@ -80,8 +80,11 @@ class ProductManager {
     const router = Router()
     // Ruta para obtener todos los productos
     router.get("/products", (req, res) => {
-      const products = this.getAllProducts()
-      res.json(products)
+      const products = this.readProducts()
+      res.render("index", {
+        items: products,
+        style: "/css/style.css"
+      })
     })
     // Ruta para obtener un producto por ID
     router.get("/products/:id", (req, res) => {
@@ -108,4 +111,5 @@ class ProductManager {
     return router
   }
 }
+
 export default ProductManager

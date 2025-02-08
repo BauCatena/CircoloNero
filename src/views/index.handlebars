@@ -1,0 +1,46 @@
+<div>
+    <p class="heading">LISTA DE PRODUCTOS 2025</p>
+  <ul>
+    {{#each items}}
+      <li><p>Nombre: {{this.title}}</p></li>
+      <li><p>Precio: ${{this.price}}</p></li>
+      <li><p>Descripción: {{this.description}}</p></li>
+      <br>
+    {{/each}}
+  </ul>
+  <div id="modifyModal" class="modifyModal">
+      <div class="modifyModal-content">
+          <span class="modify-close">&times;</span>
+          <p>¿Qué desea hacer?</p>
+        <div class="button-container">
+          <button id="addProductButton"><p>Agregar un producto</p></button>
+          <button id="modifyProductBtn"><p>Modificar un producto existente</p></button>
+          <button><p>Eliminar un producto</p></button>
+        </div>
+            <form class="addProductForm" id="createProductForm" style="display: none">
+              <div>
+                  <label for="title">Nombre del Producto:</label>
+                  <input type="text" id="title" name="productName" required>
+              </div>
+              <div>
+                  <label for="price">Precio del Producto:</label>
+                  <input type="number" id="price" name="productPrice" required>
+              </div>
+              <div>
+                  <label for="description">Descripción del Producto:</label>
+                  <textarea id="description" name="productDescription" required></textarea>
+              </div>
+              <div>
+                  <label for="stock">Cantidad del Producto:</label>
+                  <textarea id="stock" name="productStock" required></textarea>
+              </div>
+              <button type="submit">Crear Producto</button>
+          </form>
+          <div id="modifyProductContainer" class="modifyProductContainer">
+            <label for="modifyProduct">Nombre del producto</label>
+            <input type="text" name="modifyProduct" id="modifyProduct">
+          </div>  
+    </div>
+  </div>
+  <button id="modify"><p>¿Desea modificar el catálogo?</p></button>
+</div>

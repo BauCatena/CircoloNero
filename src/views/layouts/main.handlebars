@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{style}}">
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="flex-row">
+            <label class="bar" for="check">
+                <input class="menu" type="checkbox" id="check">
+                <div id="modalMenu" class="modal-menu">
+                    <div class="menu-content">
+                        <a>Inicio</a>
+                        <a href="./html/account.html">Mi Cuenta</a>
+                        <a href="">Catálogo</a>
+                    </div>
+                </div>
+                <span class="top"></span>
+                <span class="middle"></span>
+                <span class="bottom"></span>
+            </label>
+            <div class="account-container">
+                <a class="icon" href="./html/account.html"><img src="" alt="cuenta"></a>
+                <div class="logo-container">
+                    <p>Usuario</p>
+                    <p>Rango</p>
+                </div>
+            </div>
+        </div>
+        <div class="logo-container">
+            <img class="icon" src="/assets/logo0.png" alt="logo">
+            <p class="heading">CIRCOLO NERO</p>
+        </div>
+        <div> 
+            <input type="text" placeholder="Buscar" name="text" class="input">
+        </div>
+    </header>
+    <main>
+        {{{body}}}
+    </main> 
+    <footer>
+        <div class="footer-top flex-column center">
+            <p class="margin1">Se parte di Circolo Nero y no te perda di nada</p> 
+            <div class="group">
+                <input required="" type="text" class="footer-input">
+                <span class="highlight"></span>
+                <span class="bar-footer"></span>
+                <label>Email</label>
+            </div>
+        </div>
+        <div class="footer-bottom flex-column">
+            <div class="social">
+                <img class="social-icon" src="/assets/wp-icon.png" alt="wp">
+                <a class="info" href=""> Envia mensaje al Don</a>
+            </div>
+            <div class="social">
+                <img class="social-icon" src="/assets/mail-icon.png" alt="mail">
+                <a class="info" href="">Envia correo al Don</a>
+            </div>
+            <div class="social">
+                <img class="social-icon" src="/assets/ig-icon.png" alt="ig">
+                <a class="info" href="">@CircoloNero</a>
+            </div> 
+        </div>
+    </footer>
+    <script src="/js/index.js"></script>
+</body>
+</html>

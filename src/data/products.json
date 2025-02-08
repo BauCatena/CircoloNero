@@ -3,9 +3,13 @@
     "title": "Laptop",
     "description": "Laptop de 15 pulgadas",
     "price": 1500,
-    "thumbnail": "laptop.jpg",
-    "code": "ABC123",
     "stock": 5,
     "id": 1
+  },
+  {
+    "title": "asdas",
+    "price": "3242",
+    "description": "adsfa",
+    "id": 2
   }
 ]
