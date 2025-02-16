@@ -34,4 +34,7 @@ socketserver.on("connection", socket =>{
     socket.on('crearProducto', (data) => {
         socket.emit('productoCreado', { message: 'Producto procesado desde Socket.io', product: data });
     })
+    socket.on("productoModificado", (id, data) =>{
+        socket.emit("productoModificado", {message: "Producto procesado desde socket"})
+    })
 })

@@ -1,15 +1,21 @@
 [
   {
-    "title": "Laptop",
-    "description": "Laptop de 15 pulgadas",
-    "price": 1500,
-    "stock": 5,
-    "id": 1
+    "title": "asd",
+    "price": "2",
+    "description": "as",
+    "id": 3,
+    "stock": {}
   },
   {
-    "title": "asdas",
-    "price": "3242",
-    "description": "adsfa",
-    "id": 2
+    "title": "adssda",
+    "price": "43241",
+    "description": "adfsfd",
+    "id": 4
+  },
+  {
+    "title": "asd",
+    "price": "2",
+    "description": "da",
+    "id": 5
   }
 ]

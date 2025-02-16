@@ -1,12 +1,14 @@
 <div>
     <p class="heading">LISTA DE PRODUCTOS 2025</p>
-  <ul>
+  <ul id="product-container">
     {{#each items}}
       <li><p>Nombre: {{this.title}}</p></li>
       <li><p>Precio: ${{this.price}}</p></li>
       <li><p>Descripción: {{this.description}}</p></li>
+      <li><p>ID: {{this.id}}</p></li>
       <br>
     {{/each}}
+
   </ul>
   <div id="modifyModal" class="modifyModal">
       <div class="modifyModal-content">
@@ -15,9 +17,9 @@
         <div class="button-container">
           <button id="addProductButton"><p>Agregar un producto</p></button>
           <button id="modifyProductBtn"><p>Modificar un producto existente</p></button>
-          <button><p>Eliminar un producto</p></button>
+          <button id="deleteByIdBtn"><p>Eliminar un producto</p></button>
         </div>
-            <form class="addProductForm" id="createProductForm" style="display: none">
+            <form id="createProductForm" style="display: none">
               <div>
                   <label for="title">Nombre del Producto:</label>
                   <input type="text" id="title" name="productName" required>
@@ -36,10 +38,37 @@
               </div>
               <button type="submit">Crear Producto</button>
           </form>
-          <div id="modifyProductContainer" class="modifyProductContainer">
-            <label for="modifyProduct">Nombre del producto</label>
-            <input type="text" name="modifyProduct" id="modifyProduct">
-          </div>  
+          <form id="modifyProductForm" class="modifyProductContainer">
+            <div>
+              <label for="modifyProduct">ID del producto</label>
+              <input type="text" name="modifyProduct" id="productId">
+              <br>
+            </div>
+            <div>
+              <div>
+                <label for="titleMod">Nombre: </label>
+                <input id="titleMod" type="text">
+              </div>
+              <div>
+                <label for="priceMod">Precio: </label>
+                <input id="priceMod" type="text">
+              </div>
+              <div>
+                <label for="descriptionMod">Descripción: </label>
+                <input id="descriptionMod" type="text">
+              </div>
+              <div>
+                <label for="stockMod">Stock disponible:</label>
+                <input id="stockMod" type="text">
+              </div>
+            </div>
+            <button type="submit">Modificar Producto</button>
+          </form> 
+          <form id="deleteForm" style="display: none">
+            <label for="deleteId">Ingrese el ID</label>
+            <input type="text" id="deleteById" name="deleteId">
+            <button type="submit">Eliminar Producto</button>
+          </form> 
     </div>
   </div>
   <button id="modify"><p>¿Desea modificar el catálogo?</p></button>

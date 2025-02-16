@@ -53,7 +53,7 @@ class ProductManager {
       fs.writeFileSync(this.productsList, JSON.stringify(products, null, 2), "utf8")
       return { message: "Producto eliminado" }
     } catch (err) {
-      return { error: "Error al eliminar el producto" }
+      return { error: "Error al eliminar el producto" } 
     }
   }
   // Método para actualizar un producto por ID
