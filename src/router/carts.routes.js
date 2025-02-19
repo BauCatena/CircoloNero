@@ -3,8 +3,6 @@ import __dirname from "../utils.js"
 import fs from "fs"
 import path from "path"
 
-const cartsRoutes = Router()
-
 class CartManager {
     constructor (){
         this.cartList = path.join(__dirname, "./data/carts.json")
@@ -15,7 +13,7 @@ class CartManager {
             fs.writeFileSync(this.cartList, JSON.stringify([]))
         }
         const data = fs.readFileSync(this.cartList, "utf-8")
-        return JSON.parse(data)
+        return(JSON.parse(data))
     }
 
     getCartById(id){
@@ -25,10 +23,6 @@ class CartManager {
         }catch(err){
             return {error: "Carrito no encontrado"}
         }
-    }
-
-    getAllCarts(){
-        return this.readCarts()
     }
 
     eraseCart(id){
@@ -75,8 +69,14 @@ class CartManager {
 
         //Todos los carritos
         router.get("/carts", (req,res) =>{
-            const carts = this.getAllCarts()
-            res.json(carts)
+            res.render("indexCarts", {
+                style: "/css/style.css",
+                script: "/js/carts.js"
+            })
+        //devolver los carritos
+        router.get("/cart", (req, res) => {
+            res.send(this.readCarts())
+        })
         })
         //Buscar un carrito por ID
         router.get("/carts/:id", (req,res) =>{
@@ -103,4 +103,4 @@ class CartManager {
         return router
     }
 }
-export default cartsRoutes
+export default CartManager

@@ -196,4 +196,3 @@ deleteForm.onsubmit = async (event) => {
         let a = alert("No se ha borrrado ningún producto")
     }
 }
-console.log("soy el index y si funciono")

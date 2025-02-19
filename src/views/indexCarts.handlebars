@@ -1,0 +1,12 @@
+<div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab rem vero qui unde fuga odio veritatis sint. Labore, numquam ex reprehenderit praesentium minus, fugiat obcaecati dolores reiciendis voluptatibus, asperiores accusantium.
+    </p>
+    <br>
+    {{#each items}}
+      <li><p>Nombre: {{this.title}}</p></li>
+      <li><p>Precio: ${{this.price}}</p></li>
+      <li><p>Descripción: {{this.description}}</p></li>
+      <li><p>ID: {{this.id}}</p></li>
+      <br>
+    {{/each}}
+</div>

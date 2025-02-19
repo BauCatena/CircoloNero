@@ -81,9 +81,10 @@ class ProductManager {
     // Ruta para obtener todos los productos
     router.get("/products", (req, res) => {
       const products = this.readProducts()
-      res.render("index", {
+      res.render("indexProduct", {
         items: products,
-        style: "/css/style.css"
+        style: "/css/style.css",
+        script: "/js/product.js"
       })
     })
     // Ruta para obtener un producto por ID
@@ -111,5 +112,4 @@ class ProductManager {
     return router
   }
 }
-
 export default ProductManager
