@@ -1,106 +1,75 @@
-import {Router} from "express"
-import __dirname from "../utils.js"
-import fs from "fs"
-import path from "path"
+import { Router } from "express"
+import CartModel from "../models/cart.model.js"
 
-class CartManager {
-    constructor (){
-        this.cartList = path.join(__dirname, "./data/carts.json")
+const router = Router()
+
+//Read
+router.get("/", async (req, res) => {
+  try{
+      const carts = await CartModel.find()
+      res.send({carts: carts.map( cart => cart.toObject())})
+  }catch(error){
+      res.send({error:"Error al obtener carritos"})
+  }
+})
+
+//Leer un carrito específico
+router.get("/:id", async (req, res) => {
+  try{
+      const aCart = await CartModel.findById(req.params.id)
+      if(!aCart){
+          return res.send({error: "carrito no encontrado"})
+      }
+      res.send({cart: aCart.toObject()})
+  }catch(error){
+      res.send({error:"Error al obtener carrito"})
+  }
+})
+
+//Create
+router.post("/", async (req, res) => {
+    try{
+        const newCart = new CartModel(req.body)
+        await newCart.save()
+
+        res.send({cart: newCart.toObject()})
+    }catch(error){
+        res.status(500).send({error: "Error al agregar el carrito"})
+        console.error(error)
     }
-    //Métodos
-    readCarts(){
-        if (!fs.existsSync(this.cartList)){
-            fs.writeFileSync(this.cartList, JSON.stringify([]))
+})
+
+router.put("/:id", async (req, res) => {
+    const { id } = req.params 
+    const updatedData = req.body
+
+    try {
+        const updatedCart = await CartModel.findByIdAndUpdate(
+            id, 
+            updatedData,
+            { new: true } 
+        )
+        if (!updatedCart) {
+            return res.status(404).json({ message: "Carrito no encontrado" })
         }
-        const data = fs.readFileSync(this.cartList, "utf-8")
-        return(JSON.parse(data))
-    }
 
-    getCartById(id){
-        const carts = this.readCarts()
-        try{
-            return carts.find(p => p.id === parseInt(id))
-        }catch(err){
-            return {error: "Carrito no encontrado"}
+        res.status(200).json(updatedCart)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ message: "Error al actualizar el carrito", error })
+    }
+})
+
+//Delete
+router.delete("/:id", async (req, res) => {
+    try{
+        const cartToDelete = await CartModel.findByIdAndDelete(req.params.id)
+        if(!cartToDelete){
+            return res.send({error: "carrito no encontrado"})
         }
+    }catch(error){
+        res.send({error:"Error al eliminar carrito"})
     }
+})
 
-    eraseCart(id){
-        const carts = this.readCarts()
-        const cartId = carts.findIndex(p => p.id === parseInt(id))
-
-        if (cartId === -1){
-            return {error: "No se encontró ningún carrito"}
-        }
-    }
-
-    addCart(newCart){
-        const carts = this.readCarts()
-        const newId = carts.length > 0 ? maxHeaderSize.max(...carts.map(p => p.id)) +1 : 1
-        newCart.id = newId
-        carts.push(newCart)
-        try{
-            fs.writeFileSync(this.cartList, JSON.stringify(carts, null, 2), "utf-8")
-            return {message: "Carrito creado", cart: newCart}
-        }catch (err){
-            return {error: "Error al crear carrito"}
-        }
-    }
-
-    modifyCart(id, mod){
-        this.id = id
-        const carts = this.readCarts()
-        const cartId = this.getCartById(this.id)
-
-        carts[cartId] = { ...carts[cartId], ...modifiedCart}
-
-        try{
-            fs.writeFileSync(this.cartList, JSON.stringify(carts, null,2), "utf-8")
-            return {message: "Carrito modificado", cart: carts[cartId]}
-        }catch(err){
-            return {error: "No se pudo modificar el carrito"}
-        }
-    }
-
-
-    //Crear ruter para carritos
-    createRoutes(){
-        const router = Router()
-
-        //Todos los carritos
-        router.get("/carts", (req,res) =>{
-            res.render("indexCarts", {
-                style: "/css/style.css",
-                script: "/js/carts.js"
-            })
-        //devolver los carritos
-        router.get("/cart", (req, res) => {
-            res.send(this.readCarts())
-        })
-        })
-        //Buscar un carrito por ID
-        router.get("/carts/:id", (req,res) =>{
-            const cart = this.getCartById(req.params.id)
-            res.status(cart ? 200 : 404).json(cart || {error: "Carrito no encontrado"})
-        })
-        //Crear un carrito
-        router.post("/carts", (req,res) =>{
-            const newCart = req.body
-            const result = this.addCart(newCart)
-            res.status(result.error ? 500 : 201).json(result)
-        })
-        //Eliminar un carrito
-        router.delete("/carts/:id", (req,res) =>{
-            const result = this.eraseCart(req.params.id)
-            res.status(result.error ? 500 : 200).json(result)
-        })
-        //Modificar carrito por ID
-        router.put("/carts/:id", (req,res) =>{
-            const modifiedCart = req.body
-            const result = this.modifyCart(req.params.id, modifiedCart)
-            res.status(result.error ? 500 : 200),json(result)
-        })
-        return router
-    }
-}
-export default CartManager
+export default router

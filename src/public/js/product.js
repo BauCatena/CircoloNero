@@ -1,4 +1,3 @@
-const socket = io()
 let menuModal = document.getElementById("modalMenu")
 let check = document.getElementById("check")
 
@@ -95,30 +94,20 @@ addForm.onsubmit = async (event) => {
     const title = document.getElementById("title").value
     const price = document.getElementById("price").value
     const description = document.getElementById("description").value
-    const stock = document.getElementById("stock")
+    const stock = document.getElementById("stock").value
 
     const productData = {
         title,
         price,
         description,
+        stock
     }
-
-    socket.emit("crearProducto", productData)
-    
-    socket.on("productoCreado", (data) => {
-        console.log("Producto creado:", data.product);
-        alert("Producto creado con éxito");
-        form.reset(); // Limpiar el formulario
-        modal.style.display = "none"; // Cerrar el modal
-    });
-
-    socket.on("error", (error) => {
-        console.error("Error:", error.message);
-        alert(`Error: ${error.message}`);
-    });
+        alert("Producto creado con éxito")
+        addForm.reset();
+        modal.style.display = "none"
     try {
         // Enviar los datos al servidor con fetch
-        const response = await fetch("http://localhost:8080/products/products", {
+        const response = await fetch("http://localhost:8080/products", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -148,7 +137,7 @@ modifyProductContainer.onsubmit = async (event) => {
 
     try {
         const id = productId.value;
-        fetch(`http://localhost:8080/products/products/${id}`)
+        fetch(`http://localhost:8080/products/${id}`)
         .then(response => response.json())
 
         const title = document.getElementById("titleMod").value
@@ -162,7 +151,7 @@ modifyProductContainer.onsubmit = async (event) => {
             description,
             stock
         }
-        fetch(`http://localhost:8080/products/products/${id}`, {
+        fetch(`http://localhost:8080/products/${id}`, {
             method: "PUT", 
             headers: {
               "Content-Type": "application/json",  
@@ -170,7 +159,6 @@ modifyProductContainer.onsubmit = async (event) => {
             body: JSON.stringify(productData), 
           })
           .then(response => response.json())
-          socket.emit("productoModificado", productData)
           modifyProductContainer.reset()
     }
     catch (error) {
@@ -185,7 +173,7 @@ deleteForm.onsubmit = async (event) => {
         try {
             //buscar el producto con id
         const id = deleteById.value
-        fetch(`http://localhost:8080/products/products/${id}`, {method: "DELETE"})
+        fetch(`http://localhost:8080/products/${id}`, {method: "DELETE"})
         .then(alert(`producto ${id} eliminado`))
         //Borrar el producto
         } catch (error) {

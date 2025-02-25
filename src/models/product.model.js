@@ -8,6 +8,6 @@ const product = new Schema ({
     description: {type: String, required: true},
     stock: {type: Number, required: true},
 })
-const productModel = mongoose.modal("product", product)
+const productModel = mongoose.model("product", product)
 
 export default productModel

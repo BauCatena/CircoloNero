@@ -1,12 +1,63 @@
 <div>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab rem vero qui unde fuga odio veritatis sint. Labore, numquam ex reprehenderit praesentium minus, fugiat obcaecati dolores reiciendis voluptatibus, asperiores accusantium.
-    </p>
+    <h1 class="heading">CARRITOS DE LA BASE DE DATOS</h1>
     <br>
-    {{#each items}}
-      <li><p>Nombre: {{this.title}}</p></li>
-      <li><p>Precio: ${{this.price}}</p></li>
-      <li><p>Descripción: {{this.description}}</p></li>
-      <li><p>ID: {{this.id}}</p></li>
-      <br>
-    {{/each}}
+</div>
+<ul id="cartsList">
+
+</ul>
+<div>
+  <div id="modifyModal" class="modifyModal">
+      <div class="modifyModal-content">
+          <span class="modify-close">&times;</span>
+          <p>¿Qué desea hacer?</p>
+        <div class="button-container">
+          <button id="addCartButton"><p>Agregar carrito</p></button>
+          <button id="modifyCartBtn"><p>Modificar carrito</p></button>
+          <button id="deleteByIdBtn"><p>Eliminar carrito</p></button>
+        </div>
+            <form id="addCartForm" style="display: none">
+              <div>
+                  <label for="title">Nombre del carrito:</label>
+                  <input type="text" id="title" name="cartName" required>
+              </div>
+              <div>
+                  <label for="owner">Propietario del carrito:</label>
+                  <textarea id="owner" name="owner" required></textarea>
+              </div>
+              <div>
+                  <label for="productsAdded">Productos del carrito</label>
+                  <textarea id="productsAdded" name="productsAdded" required></textarea>
+              </div>
+              <button type="submit">Agregar carrito</button>
+          </form>
+          <form id="modifyCartForm" class="modifyCartContainer">
+            <div>
+              <label for="modifyCart">ID del carrito</label>
+              <input type="text" name="modifyCart" id="cartId">
+              <br>
+            </div>
+            <div>
+              <div>
+                <label for="titleMod">Nombre: </label>
+                <input id="titleMod" type="text">
+              </div>
+              <div>
+                <label for="descriptionMod">Propietario: </label>
+                <input id="ownerMod" type="text">
+              </div>
+              <div>
+                <label for="productsMod">Productos del carrito:</label>
+                <input id="productsMod" type="text">
+              </div>
+            </div>
+            <button type="submit">Modificar carrito</button>
+          </form> 
+          <form id="deleteForm" style="display: none">
+            <label for="deleteId">Ingrese el ID</label>
+            <input type="text" id="deleteById" name="deleteId">
+            <button type="submit">Eliminar carrito</button>
+          </form> 
+    </div>
+  </div>
+  <button id="modify"><p>Haz click para ver las opciones de administrador</p></button>
 </div>
